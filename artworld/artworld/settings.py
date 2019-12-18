@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'artworld.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'artwork',
+        'NAME': 'artworld',
     }
 }
 
