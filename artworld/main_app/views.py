@@ -9,4 +9,4 @@ def index(request):
 
 def arts_index(resquest):
     arts = Art.objects.all()
-  return render(request, 'arts/index.html', { 'arts': arts })
+    return render(request, 'arts/index.html', { 'arts': arts })
