@@ -4,6 +4,6 @@ from .models import Art
 
 # Create your views here.
 
-def arts_index(resquest):
+def arts_index(request):
     arts = Art.objects.all()
-    return render(request, 'arts/index.html', { 'arts': arts })
+    return render(request, 'index.html', { 'arts': arts })
