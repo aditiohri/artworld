@@ -1,15 +1,16 @@
-{% extends 'base.html' %} 
-{% block content %} 
+{% extends 'base.html' %} {% block content %}
 
 <h1>Art Details</h1>
 
 <div class="card">
   <div class="card-content">
+    <img src="https://i.imgur.com/7Rcu58f.jpg" class="card-img-top" alt="..." />
     <span class="card-title">{{ art.title }}</span>
     <p>artist: {{ art.artist }}</p>
     <p>Description: {{ art.description }}</p>
     <p>Year: {{ art.year }}</p>
     <p>Price: {{ art.price }}</p>
+    <a href="..." class="btn btn-primary">Add to cart</a>
   </div>
 </div>
 
