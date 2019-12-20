@@ -13,12 +13,16 @@ def arts_index(request):
     arts = Art.objects.all()
     return render(request, 'index.html', { 'arts': arts })
 
-class ArtList(ListView):
-    model = Art
-    fields = '__all__'
-    success_url = '/art/'
-    context_object_name = 'artwork'
-    template_name = 'art.html'
+# class ArtList(ListView):
+#     model = Art
+#     fields = '__all__'
+#     success_url = '/art/'
+#     context_object_name = 'artwork'
+#     template_name = 'art.html'
+
+def arts_detail(request, art_id):
+  art = Art.objects.get(id=art_id)
+  return render(request, 'detail.html', { 'art': art })
 
 def signup(request):
   error_message = ''

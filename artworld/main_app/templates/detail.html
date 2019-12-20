@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block content %} 
-{% for art in artwork %}
+{% extends 'base.html' %} 
+{% block content %} 
+
+<h1>Art Details</h1>
+
 <div class="card">
   <div class="card-content">
     <span class="card-title">{{ art.title }}</span>
@@ -9,4 +12,5 @@
     <p>Price: {{ art.price }}</p>
   </div>
 </div>
-{% endfor %} {% endblock %}
+
+{% endblock %}
