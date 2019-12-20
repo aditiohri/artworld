@@ -11,17 +11,15 @@ class Art(models.Model):
     year = models.IntegerField()
     price = models.IntegerField()
     artist = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.title} {self.artist}"
     
-    def get_absolute_url(self):
-        return reverse('', kwargs={'art_id': self.id})
-
 class Customer(models.Model):
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     
     def __str__(self):
         return self.name

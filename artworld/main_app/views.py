@@ -17,6 +17,7 @@ class ArtList(ListView):
     model = Art
     fields = '__all__'
     success_url = '/art/'
+    context_object_name = 'artwork'
     template_name = 'art.html'
 
 def signup(request):
