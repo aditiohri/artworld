@@ -12,7 +12,7 @@ from .models import Art
 
 def arts_index(request):
     arts = Art.objects.all()
-    return render(request, '.../index.html', { 'arts': arts })
+    return render(request, 'index.html', { 'arts': arts })
 
 # class ArtList(ListView):
 #     model = Art
@@ -23,10 +23,10 @@ def arts_index(request):
 
 def art_detail(request, art_id):
   art = Art.objects.get(id=art_id)
-  order_form = OrderForm()
-  return render(request, '.../detail.html', { 
+  # order_form = OrderForm()
+  return render(request, 'detail.html', { 
       'art': art,
-      'order_form': order_form 
+      # 'order_form': order_form 
       })
 
 def orders_index(request):
