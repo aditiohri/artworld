@@ -30,7 +30,7 @@ def art_detail(request, art_id):
       })
 
 def orders_index(request):
-    orders = Order.objects.all()
+    orders = Order.objects.filter(user=request.user)
     return render(request, 'order.html', { 'orders': orders })  
 
 def order_detail(request, order_id):
@@ -38,12 +38,12 @@ def order_detail(request, order_id):
     return render(request, '.../detail.html', { 'order': order })
 
 def add_order(request, art_id):
-  form = OrderForm(request.POST)
-  if form.is_valid():
-    new_order = form.save(commit=False)
-    new_order.art_id = art_id
+    new_order = Order.objects.create(
+        art = Art.objects.get(id=art_id),
+        user=request.user,
+    )
     new_order.save()
-  return redirect('...', art_id=art_id)  
+    return redirect('...', art_id=art_id)  
 
 def signup(request):
   error_message = ''
