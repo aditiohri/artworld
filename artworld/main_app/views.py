@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Art, Order
-from .forms import OrderForm
+# from .forms import OrderForm
 
 # Create your views here.
 
@@ -23,10 +23,10 @@ def arts_index(request):
 
 def art_detail(request, art_id):
   art = Art.objects.get(id=art_id)
-  order_form = OrderForm()
+  # order_form = OrderForm()
   return render(request, 'detail.html', { 
       'art': art,
-      'order_form': order_form 
+      # 'order_form': order_form 
       })
 
 def orders_index(request):
