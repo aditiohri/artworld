@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from django.conf import settings
 
 # Create your models here.
 
@@ -16,12 +16,10 @@ class Art(models.Model):
         return f"{self.title} {self.artist}"
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     art = models.ForeignKey(Art, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
-    def __str__(self):
-        return self.user
-
+    
 class Card(models.Model):
     name = models.CharField(max_length=100)
     number = models.IntegerField()
