@@ -19,6 +19,9 @@ class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     art = models.ForeignKey(Art, on_delete=models.CASCADE)
     address = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.art
     
 class Card(models.Model):
     name = models.CharField(max_length=100)
