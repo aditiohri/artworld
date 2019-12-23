@@ -5,14 +5,14 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Art
-# from .forms import OrderForm
+from .models import Art, Order
+from .forms import OrderForm
 
 # Create your views here.
 
 def arts_index(request):
     arts = Art.objects.all()
-    return render(request, '.../index.html', { 'arts': arts })
+    return render(request, 'index.html', { 'arts': arts })
 
 # class ArtList(ListView):
 #     model = Art
@@ -24,14 +24,14 @@ def arts_index(request):
 def art_detail(request, art_id):
   art = Art.objects.get(id=art_id)
   order_form = OrderForm()
-  return render(request, '.../detail.html', { 
+  return render(request, 'detail.html', { 
       'art': art,
       'order_form': order_form 
       })
 
 def orders_index(request):
     orders = Order.objects.all()
-    return render(request, '.../index.html', { 'orders': orders })  
+    return render(request, 'order.html', { 'orders': orders })  
 
 def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
