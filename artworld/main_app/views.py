@@ -12,7 +12,7 @@ from .models import Art, Order
 
 def arts_index(request):
     arts = Art.objects.all()
-    return render(request, 'index.html', { 'arts': arts })
+    return render(request, 'art/index.html', { 'arts': arts })
 
 # class ArtList(ListView):
 #     model = Art
@@ -24,18 +24,18 @@ def arts_index(request):
 def art_detail(request, art_id):
   art = Art.objects.get(id=art_id)
   # order_form = OrderForm()
-  return render(request, 'detail.html', { 
+  return render(request, 'art/detail.html', { 
       'art': art,
       # 'order_form': order_form 
       })
 
 def orders_index(request):
     orders = Order.objects.filter(user=request.user)
-    return render(request, 'order.html', { 'orders': orders })  
+    return render(request, 'order/index.html', { 'orders': orders })  
 
 def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
-    return render(request, 'detail.html', { 'order': order })
+    return render(request, 'art/detail.html', { 'order': order })
 
 def add_order(request, art_id):
   new_order = Order.objects.create(
