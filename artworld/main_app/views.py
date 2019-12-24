@@ -29,14 +29,17 @@ def art_detail(request, art_id):
       # 'order_form': order_form 
       })
 
+@login_required
 def orders_index(request):
     orders = Order.objects.filter(user=request.user)
     return render(request, 'order/index.html', { 'orders': orders })  
 
+@login_required
 def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
     return render(request, 'art/detail.html', { 'order': order })
 
+@login_required
 def add_order(request, art_id):
   new_order = Order.objects.create(
       art = Art.objects.get(id=art_id),
