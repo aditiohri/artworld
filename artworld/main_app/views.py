@@ -35,15 +35,15 @@ def orders_index(request):
 
 def order_detail(request, order_id):
     order = Order.objects.get(id=order_id)
-    return render(request, '.../detail.html', { 'order': order })
+    return render(request, 'detail.html', { 'order': order })
 
 def add_order(request, art_id):
-    new_order = Order.objects.create(
-        art = Art.objects.get(id=art_id),
-        user=request.user,
+  new_order = Order.objects.create(
+      art = Art.objects.get(id=art_id),
+      user = request.user,
     )
-    new_order.save()
-    return redirect('...', art_id=art_id)  
+  new_order.save()
+  return redirect('order_index')  
 
 def signup(request):
   error_message = ''
