@@ -51,6 +51,10 @@ def add_order(request, art_id):
   new_order.save()
   return redirect('order_index')  
 
+def order_delete(request):
+    Order.objects.all().delete()
+    return redirect('order_index')
+
 def signup(request):
   error_message = ''
   if request.method == 'POST':
