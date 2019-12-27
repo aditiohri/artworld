@@ -9,6 +9,9 @@ from .models import Art, Order
 # from .forms import OrderForm
 
 # Create your views here.
+ 
+def about(request):
+  return render(request, 'about.html')
 
 def arts_index(request):
     arts = Art.objects.all()
@@ -47,6 +50,16 @@ def add_order(request, art_id):
     )
   new_order.save()
   return redirect('order_index')  
+
+@login_required
+def order_delete(request):
+    Order.objects.all().delete()
+    return redirect('order_index')
+
+@login_required
+def order_item_delete(request, art_id):
+    Order.objects.filter(art_id=art_id).delete()
+    return redirect('order_index')    
 
 def signup(request):
   error_message = ''
