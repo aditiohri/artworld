@@ -9,6 +9,9 @@ from .models import Art, Order
 # from .forms import OrderForm
 
 # Create your views here.
+ 
+def about(request):
+  return render(request, 'about.html')
 
 def arts_index(request):
     arts = Art.objects.all()
