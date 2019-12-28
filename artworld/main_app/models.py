@@ -35,7 +35,7 @@ class Cart(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    items = models.ManyToManyField(CartItem)
+    items = models.ManyToManyField(Cart)
     ordered_date = models.DateTimeField(auto_now_add=True)
     ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
