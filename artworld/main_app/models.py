@@ -22,7 +22,7 @@ class Art(models.Model):
     def __str__(self):
         return f"{self.title} {self.artist}"
 
-class CartItem(models.Model):
+class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     art = models.ForeignKey(Art, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)

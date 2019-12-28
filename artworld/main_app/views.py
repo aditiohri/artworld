@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.views.generic import ListView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Art, Order
-# from .forms import OrderForm
+from .models import Art, Cart, Order
 
 # Create your views here.
  
@@ -17,49 +14,33 @@ def arts_index(request):
     arts = Art.objects.all()
     return render(request, 'art/index.html', { 'arts': arts })
 
-# class ArtList(ListView):
-#     model = Art
-#     fields = '__all__'
-#     success_url = '/art/'
-#     context_object_name = 'artwork'
-#     template_name = 'art.html'
-
 def art_detail(request, art_id):
   art = Art.objects.get(id=art_id)
-  # order_form = OrderForm()
-  return render(request, 'art/detail.html', { 
-      'art': art,
-      # 'order_form': order_form 
-      })
+  return render(request, 'art/detail.html', { 'art': art })
 
 @login_required
-def orders_index(request):
-    orders = Order.objects.filter(user=request.user)
-    return render(request, 'order/index.html', { 'orders': orders })  
+def cart_index(request):
+    cart = Cart.objects.filter(user=request.user)
+    return render(request, 'cart/index.html', { 'cart': cart })  
 
 @login_required
-def order_detail(request, order_id):
-    order = Order.objects.get(id=order_id)
-    return render(request, 'art/detail.html', { 'order': order })
-
-@login_required
-def add_order(request, art_id):
-  new_order = Order.objects.create(
+def add_cart(request, art_id):
+  new_cart_item = Cart.objects.create(
       art = Art.objects.get(id=art_id),
       user = request.user,
     )
-  new_order.save()
-  return redirect('order_index')  
+  new_cart_item.save()
+  return redirect('cart_index')  
 
 @login_required
-def order_delete(request):
-    Order.objects.all().delete()
-    return redirect('order_index')
+def delete_cart(request):
+    Cart.objects.all().delete()
+    return redirect('cart_index')
 
 @login_required
-def order_item_delete(request, art_id):
-    Order.objects.filter(art_id=art_id).delete()
-    return redirect('order_index')    
+def delete_cart_item(request, art_id):
+    Cart.objects.filter(art_id=art_id).delete()
+    return redirect('cart_index')    
 
 def signup(request):
   error_message = ''
