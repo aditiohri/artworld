@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Art, Order
+from .models import Art, Cart, Order
 
 # Register your models here.
 admin.site.register(Art)
+admin.site.register(Cart)
 admin.site.register(Order)
