@@ -10,7 +10,7 @@
     <p>Description: {{ art.description }}</p>
     <p>Year: {{ art.year }}</p>
     <p>Price: {{ art.price }}</p>
-    <form action="{% url 'add_order' art.id %}" method="post">
+    <form action="{% url 'add_cart' art.id %}" method="post">
       {% csrf_token %}
       <button class="btn btn-primary" type="submit">Add to cart</button>
     </form>

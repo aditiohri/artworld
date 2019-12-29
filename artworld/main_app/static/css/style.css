@@ -1,3 +1,18 @@
 .row {
   display: inline-flex;
 }
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer.page-footer {
+  background-color: black;
+  padding-top: 0;
+  text-align: right;
+}
