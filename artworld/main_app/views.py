@@ -40,7 +40,10 @@ def delete_cart(request):
 @login_required
 def delete_cart_item(request, art_id):
     Cart.objects.filter(art_id=art_id).delete()
-    return redirect('cart_index')    
+    return redirect('cart_index') 
+
+def checkout(request):
+  return render(request, 'checkout.html')       
 
 def signup(request):
   error_message = ''
