@@ -17,7 +17,6 @@ class Art(models.Model):
     year = models.IntegerField()
     price = models.FloatField()
     artist = models.CharField(max_length=100)
-    image = models.ImageField()
 
     def __str__(self):
         return f"{self.title} {self.artist}"
