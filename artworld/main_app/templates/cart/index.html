@@ -12,6 +12,7 @@
     <button class="btn btn-danger" type="submit">X</button>
   </form>
   {% endfor %}
+  <li>subtotal: {{ Cart.get_total }}</li>
 </ul>
 <form action="{% url 'delete_cart'  %}" method="post">
   {% csrf_token %}
