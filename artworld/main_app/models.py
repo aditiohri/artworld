@@ -29,8 +29,14 @@ class Cart(models.Model):
     def __str__(self):
         return self.art
 
-    def get_total_item_price(self):
-        return self.item.price
+    def get_item_price(self):
+        return self.art.price
+
+    def get_total(self):
+        total = 0
+        for cart_item in self.art.all():
+            total += cart_item.get_item_price()
+        return total
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
