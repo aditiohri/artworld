@@ -6,6 +6,7 @@
   {% for item in cart %}
   <li>{{ item.art.title }}</li>
   <li>{{ item.art.artist }}</li>
+  <li>{{ item.art.price }}</li>
   <form action="{% url 'delete_cart_item' item.art.id %}" method="post">
     {% csrf_token %}
     <button class="btn btn-danger" type="submit">X</button>
@@ -16,6 +17,11 @@
   {% csrf_token %}
   <button class="btn btn-danger" type="submit">Clear Cart</button>
 </form>
+<form action="{% url 'checkout'  %}" method="post">
+  {% csrf_token %}
+  <button class="btn btn-primary" type="submit">Checkout</button>
+</form>
+
 {% else %}
 <h5>Your Cart is Empty</h5>
 {% endif %}
