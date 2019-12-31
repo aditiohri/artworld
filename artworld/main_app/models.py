@@ -21,26 +21,23 @@ class Art(models.Model):
     def __str__(self):
         return f"{self.title} {self.artist}"
 
+    class Meta:
+        verbose_name_plural = 'Artwork'
+
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     art = models.ForeignKey(Art, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.art
+        return f"{self.art.title} is worth {self.art.price}"
 
     def get_item_price(self):
         return self.art.price
 
-    def get_total(self):
-        total = 0
-        for cart_item in self.art.all():
-            total += cart_item.get_item_price()
-        return total
-
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    items = models.ManyToManyField(Cart)
+    art = models.ManyToManyField(Cart)
     ordered_date = models.DateTimeField(auto_now_add=True)
     ordered = models.BooleanField(default=False)
     shipping_address = models.ForeignKey(
@@ -53,10 +50,10 @@ class Order(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_total(self):
+    def get_total_price(self):
         total = 0
         for cart_item in self.items.all():
-            total += cart_item.get_final_price()
+            total += cart_item.get_item_price()
         return total
 
 class Address(models.Model):
