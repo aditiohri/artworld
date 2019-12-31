@@ -52,7 +52,7 @@ class Order(models.Model):
 
     def get_total_price(self):
         total = 0
-        for cart_item in self.items.all():
+        for cart_item in self.art.all():
             total += cart_item.get_item_price()
         return total
 
