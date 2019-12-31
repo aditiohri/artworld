@@ -29,6 +29,12 @@ def art_detail(request, art_id):
     art = Art.objects.get(id=art_id)
     return render(request, 'art/detail.html', {'art': art})
 
+def is_valid_form(values):
+    valid = True
+    for field in values:
+        if field == '':
+            valid = False
+    return valid
 
 @login_required
 def cart_index(request):
@@ -94,6 +100,7 @@ class CheckoutView(LoginRequiredMixin, View):
                 address_type='S',
                 default=True
             )
+
             if shipping_address.exists():
                 context.update(
                     {'default_shipping_address': shipping_address[0]})
