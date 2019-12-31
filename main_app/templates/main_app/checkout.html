@@ -19,6 +19,7 @@
                   id="shipping_address"
                   name="shipping_address"
                   class="form-control"
+                  value= "{{default_shipping_address.street_address}}"
                 />
                 <label for="shipping_address" class="">Address</label>
               </div>
@@ -30,6 +31,7 @@
                   id="shipping_address2"
                   name="shipping_address2"
                   class="form-control"
+                  value= "{{default_shipping_address.apartment_address}}"
                 />
                 <label for="shipping_address2" class=""
                   >Address 2 (optional)</label
@@ -52,6 +54,7 @@
                     id="shipping_zip"
                     name="shipping_zip"
                     class="form-control"
+                    value= "{{default_shipping_address.zip}}"
                   />
                   <div class="invalid-feedback">
                     Zip code required.
@@ -91,7 +94,6 @@
                 name="use_default_shipping"
                 id="use_default_shipping"
               />
-              <label class="custom-control-label" for="use_default_shipping">Use default shipping address: {{ default_shipping_address.street_address|truncatechars:10 }}</label>
             </div>
             {% endif %}
 
@@ -107,6 +109,7 @@
                   id="billing_address"
                   name="billing_address"
                   class="form-control"
+                  value= "{{default_billing_address.street_address}}"
                 />
                 <label for="billing_address" class="">Address</label>
               </div>
@@ -118,6 +121,7 @@
                   id="billing_address2"
                   name="billing_address2"
                   class="form-control"
+                  value= "{{default_billing_address.apartment_address}}"
                 />
                 <label for="billing_address2" class=""
                   >Address 2 (optional)</label
@@ -141,6 +145,7 @@
                     id="billing_zip"
                     name="billing_zip"
                     class="form-control"
+                    value= "{{default_billing_address.zip}}"
                   />
                   <div class="invalid-feedback">
                     Zip code required.
@@ -169,11 +174,6 @@
                 name="use_default_billing"
                 id="use_default_billing"
               />
-              <label class="custom-control-label" for="use_default_billing"
-                >Use default billing address: {{
-                default_billing_address.street_address|truncatechars:10
-                }}</label
-              >
             </div>
             {% endif %}
             <hr />
