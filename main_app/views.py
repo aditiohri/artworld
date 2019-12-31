@@ -38,11 +38,17 @@ def is_valid_form(values):
 
 @login_required
 def cart_index(request):
+    order = []
     cart = Cart.objects.filter(user=request.user)
-    order = Order.objects.get(user=request.user, ordered=False)
+    address = Address.objects.filter(user=request.user)
+    try:
+        order = Order.objects.get(user=request.user, ordered=False)
+    except:
+        pass
     return render(request, 'cart/index.html', {
         'cart': cart,
-        'order': order
+        'order': order,
+        'address': address
         })
 
 
