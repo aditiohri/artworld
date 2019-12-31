@@ -24,13 +24,13 @@
     <header class="navbar-fixed">
       <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand">ArtWorld</a>
-        <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'about' %}">About</a>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Log Out</a></li>
+        <a href="{% url 'logout' %}">Log Out</a>
         {% else %}
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        <li><a href="{% url 'login' %}">Log In</a></li>
+        <a href="{% url 'signup' %}">Sign Up</a>
+        <a href="{% url 'login' %}">Log In</a>
         {% endif %}
         <form class="form-inline">
           <input
@@ -42,15 +42,16 @@
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
-          <li><a href="{% url 'cart_index' %}">Cart</a></li>
         </form>
+        <a href="{% url 'cart_index' %}">Cart</a>
       </nav>
     </header>
-    <main class="container"></main>
-    {% block content %} {% endblock %}
-    <footer class="page-footer">
-        All Rights Reserved, &copy; 2019 ArtWorld &nbsp;
-      </div>
-    </footer>
+    <main class="container">
+      {% block content %} {% endblock %}
+    </main>
   </body>
 </html>
+<!-- <footer class="page-footer">
+            All Rights Reserved, &copy; 2019 ArtWorld &nbsp;
+          </div>
+        </footer> -->
