@@ -1,28 +1,5 @@
 {% extends 'base.html' %} {% block content %}
 <h1>Cart</h1>
-<div class="row">
-  <div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">Billing to:</h5>
-      <p class="card-text">
-        {{ address.0.street_address}}, {{address.0.country}}, {{address.0.zip}}
-        {{address.0.address_type}}
-      </p>
-      <a href="#" class="btn btn-primary">Edit</a>
-    </div>
-  </div>
-  <div class="row">
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Shipping to:</h5>
-        <p class="card-text">
-          {{ address.1.street_address}}, {{address.1.country}},
-          {{address.1.zip}} {{address.1.address_type}}
-        </p>
-        <a href="#" class="btn btn-primary">Edit</a>
-      </div>
-    </div>
-  </div>
 
   <table class="table">
     <thead>
@@ -50,7 +27,7 @@
         </td>
       </tr>
       {% endfor %}
-      {% if order.count %}
+      {% if order %}
       <tr>
         <th scope="row">TOTAL:</th>
         <td></td>
@@ -58,6 +35,30 @@
         <td>${{ order.get_total_price }}</td>
         <td></td>
       </tr>
+
+      <div class="row">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Billing to:</h5>
+            <p class="card-text">
+              {{ order.billing_address.street_address }}, {{ order.billing_address.country }}, {{ order.billing_address.zip }}
+              {{ order.billing_address.address_type}}
+            </p>
+            <a href="#" class="btn btn-primary">Edit</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Shipping to:</h5>
+              <p class="card-text">
+                {{ order.shipping_address.street_address }}, {{ order.shipping_address.country }},
+                {{ order.shipping_address.zip }} {{ order.shipping_address.address_type }}
+              </p>
+              <a href="#" class="btn btn-primary">Edit</a>
+            </div>
+          </div>
+        </div>
       {% endif %}
       <td>
         <form action="{% url 'delete_cart'  %}" method="post">
