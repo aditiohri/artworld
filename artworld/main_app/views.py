@@ -33,7 +33,11 @@ def art_detail(request, art_id):
 @login_required
 def cart_index(request):
     cart = Cart.objects.filter(user=request.user)
-    return render(request, 'cart/index.html', {'cart': cart})
+    order = Order.objects.filter(user=request.user, ordered=False)
+    return render(request, 'cart/index.html', {
+        'cart': cart,
+        'order': order
+        })
 
 
 @login_required
@@ -45,7 +49,7 @@ def add_cart(request, art_id):
     order = Order.objects.filter(user=request.user, ordered=False)
     if order.exists():
         order = order[0]
-        if order.art.filter(art_id=art.id).exists():
+        if order.art.filter(art_id=art_id).exists():
             messages.info(request, "This item is already in your cart.")
             return redirect('cart_index')
         else: 
@@ -61,13 +65,15 @@ def add_cart(request, art_id):
 
 @login_required
 def delete_cart(request):
-    Cart.objects.all().delete()
+    Order.objects.filter(user=request.user, ordered=False).delete()
+    Cart.objects.filter(user=request.user, ordered=False).delete()
     return redirect('cart_index')
 
 
 @login_required
 def delete_cart_item(request, art_id):
-    Cart.objects.filter(art_id=art_id).delete()
+    Order.objects.filter(user=request.user, ordered=False, art=art_id).delete()
+    Cart.objects.filter(user=request.user, art_id=art_id).delete()
     return redirect('cart_index')
 
 def checkout(request):
