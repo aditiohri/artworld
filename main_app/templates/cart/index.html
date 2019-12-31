@@ -1,30 +1,75 @@
 {% extends 'base.html' %} {% block content %}
-
 <h1>Cart</h1>
-{% if cart.count %}
-<ul>
-  {% for item in cart %}
-  <li>{{ item.art.title }}</li>
-  <li>{{ item.art.artist }}</li>
-  <li>{{ item.art.price }}</li>
-  <form action="{% url 'delete_cart_item' item.art.id %}" method="post">
-    {% csrf_token %}
-    <button class="btn btn-danger" type="submit">X</button>
-  </form>
-  {% endfor %}
-  <li>subtotal: ${{ item.order.get_total_price }}</li>
-</ul>
-<form action="{% url 'delete_cart'  %}" method="post">
-  {% csrf_token %}
-  <button class="btn btn-danger" type="submit">Clear Cart</button>
-</form>
-<form action="{% url 'checkout' %}" method="post">
-  {% csrf_token %}
-  <button class="btn btn-primary" type="submit">Checkout</button>
-</form>
+<div class="row">
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Billing to:</h5>
+      <p class="card-text">
+        {{ address.0.street_address}}, {{address.0.country}}, {{address.0.zip}}
+        {{address.0.address_type}}
+      </p>
+      <a href="#" class="btn btn-primary">Edit</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Shipping to:</h5>
+        <p class="card-text">
+          {{ address.1.street_address}}, {{address.1.country}},
+          {{address.1.zip}} {{address.1.address_type}}
+        </p>
+        <a href="#" class="btn btn-primary">Edit</a>
+      </div>
+    </div>
+  </div>
 
-{% else %}
-<h5>Your Cart is Empty</h5>
-{% endif %}
-<table></table>
-{% endblock %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if cart.count %}
+      <tr>
+        {% for item in cart %}
+        <th scope="row">1</th>
+        <td>{{ item.art.title }}</td>
+        <td>{{ item.art.artist }}</td>
+        <td>${{ item.art.price }}</td>
+        <td>
+          <form action="{% url 'delete_cart_item' item.art.id %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">X</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <th scope="row">TOTAL:</th>
+        <td></td>
+        <td></td>
+        <td>${{ order.get_total_price }}</td>
+        <td></td>
+      </tr>
+      <td>
+        <form action="{% url 'delete_cart'  %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-danger" type="submit">Clear Cart</button>
+        </form>
+        <form action="{% url 'checkout' %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-primary" type="submit">Checkout</button>
+        </form>
+      </td>
+      {% else %}
+      <td>Your Cart is Empty</td>
+      {% endif %} {% endblock %}
+    </tbody>
+  </table>
+</div>
