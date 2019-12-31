@@ -12,13 +12,13 @@
     <button class="btn btn-danger" type="submit">X</button>
   </form>
   {% endfor %}
-  <li>subtotal: {{ Cart.get_total }}</li>
+  <li>subtotal: ${{ get_total_price }}</li>
 </ul>
 <form action="{% url 'delete_cart'  %}" method="post">
   {% csrf_token %}
   <button class="btn btn-danger" type="submit">Clear Cart</button>
 </form>
-<form action="{% url 'checkout'  %}" method="post">
+<form action="{% url 'checkout' %}" method="post">
   {% csrf_token %}
   <button class="btn btn-primary" type="submit">Checkout</button>
 </form>
