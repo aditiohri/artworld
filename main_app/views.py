@@ -29,6 +29,12 @@ def art_detail(request, art_id):
     art = Art.objects.get(id=art_id)
     return render(request, 'art/detail.html', {'art': art})
 
+def is_valid_form(values):
+    valid = True
+    for field in values:
+        if field == '':
+            valid = False
+    return valid
 
 @login_required
 def cart_index(request):
@@ -76,9 +82,6 @@ def delete_cart_item(request, art_id):
     Cart.objects.filter(user=request.user, art_id=art_id).delete()
     return redirect('cart_index')
 
-def checkout(request):
-  return render(request, 'main_app/checkout.html')
-
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
         try:
@@ -94,6 +97,7 @@ class CheckoutView(LoginRequiredMixin, View):
                 address_type='S',
                 default=True
             )
+
             if shipping_address.exists():
                 context.update(
                     {'default_shipping_address': shipping_address[0]})
