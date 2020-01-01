@@ -66,7 +66,10 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        # commented code below is not working because it returns a queryset rather than a string
+        # user = Address.objects.filter(user__username=self.user.username)
+        # return user.street_address
+        return self.street_address
 
     class Meta:
         verbose_name_plural = 'Addresses'
