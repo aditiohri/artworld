@@ -44,7 +44,7 @@
               {{ order.billing_address.street_address }}, {{ order.billing_address.country }}, {{ order.billing_address.zip }}
               {{ order.billing_address.address_type}}
             </p>
-            <a href="#" class="btn btn-primary">Edit</a>
+            <a href="{% url 'address_update' order.id %}" class="btn btn-primary">Edit</a>
           </div>
         </div>
         <div class="row">
@@ -55,7 +55,7 @@
                 {{ order.shipping_address.street_address }}, {{ order.shipping_address.country }},
                 {{ order.shipping_address.zip }} {{ order.shipping_address.address_type }}
               </p>
-              <a href="#" class="btn btn-primary">Edit</a>
+              <a href="{% url 'address_update' order.id %}" class="btn btn-primary">Edit</a>
             </div>
           </div>
         </div>
