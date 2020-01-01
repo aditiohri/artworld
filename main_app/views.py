@@ -124,7 +124,7 @@ class CheckoutView(LoginRequiredMixin, View):
             return redirect("checkout")
 
     def post(self, *args, **kwargs):
-        form = CheckoutForm(self.request.POST or None)
+        form = CheckoutForm(self.request.POST)
         try:
             order = Order.objects.get(user=self.request.user, ordered=False)
             if form.is_valid():
