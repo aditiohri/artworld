@@ -176,7 +176,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
                     if same_billing_address:
                         billing_address = shipping_address
-                        billing_address.pk = None
+                        # billing_address.pk = None
                         billing_address.address_type = 'B'
                         billing_address.save()
                         order.billing_address = billing_address
