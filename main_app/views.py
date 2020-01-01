@@ -217,7 +217,7 @@ class CheckoutView(LoginRequiredMixin, View):
                                     country=billing_country,
                                     zip=billing_zip,
                                     address_type='B'
-                                )
+                                    )
                                 
                             billing_address.save()
                             order.billing_address = billing_address
