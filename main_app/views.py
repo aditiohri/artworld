@@ -110,10 +110,10 @@ class CheckoutView(LoginRequiredMixin, View):
                 context.update(
                     {'default_shipping_address': shipping_address[0]})
 
-            billing_address = Address.objects.filter(
+                billing_address = Address.objects.filter(
                 user=self.request.user,
                 address_type='B'
-            )
+                )
             if billing_address.exists():
                 context.update(
                     {'default_billing_address': billing_address[0]})
