@@ -112,14 +112,6 @@ class CheckoutView(LoginRequiredMixin, View):
                 address_type='S'
             )
 
-            if shipping_address.exists():
-                context.update(
-                    {'default_shipping_address': shipping_address})
-
-            if billing_address.exists():
-                context.update(
-                    {'default_billing_address': billing_address})
-
             return render(self.request, "main_app/checkout.html", context)
         except ObjectDoesNotExist:
             messages.info(self.request, "You do not have an active order")
@@ -177,7 +169,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
                     if same_billing_address:
                         billing_address = shipping_address
-                        # billing_address.pk = None
+                        billing_address.pk = None
                         billing_address.address_type = 'B'
                         billing_address.save()
                         order.billing_address = billing_address
