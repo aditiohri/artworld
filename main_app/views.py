@@ -102,6 +102,11 @@ class CheckoutView(LoginRequiredMixin, View):
                 'order': order,
             }
 
+            billing_address = Address.objects.filter(
+            user=self.request.user,
+            address_type='B'
+            )
+
             shipping_address = Address.objects.filter(
                 user=self.request.user,
                 address_type='S'
@@ -109,15 +114,11 @@ class CheckoutView(LoginRequiredMixin, View):
 
             if shipping_address.exists():
                 context.update(
-                    {'default_shipping_address': shipping_address[0]})
+                    {'default_shipping_address': shipping_address})
 
-                billing_address = Address.objects.filter(
-                user=self.request.user,
-                address_type='B'
-                )
             if billing_address.exists():
                 context.update(
-                    {'default_billing_address': billing_address[0]})
+                    {'default_billing_address': billing_address})
 
             return render(self.request, "main_app/checkout.html", context)
         except ObjectDoesNotExist:
