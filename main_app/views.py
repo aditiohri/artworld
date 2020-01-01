@@ -50,7 +50,8 @@ def cart_index(request):
     return render(request, 'cart/index.html', {
         'cart': cart,
         'order': order,
-        'address': address
+        'address': address, 
+        'user': request.user
         })
 
 
