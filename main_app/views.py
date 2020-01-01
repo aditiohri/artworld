@@ -229,7 +229,7 @@ class CheckoutView(LoginRequiredMixin, View):
                     messages.info(
                         self.request, "Please fill in the required shipping address fields")
 
-                return redirect('checkout')
+                return redirect('checkout', order_id=order_id)
 
                 # payment_option = form.cleaned_data.get('payment_option')
 
