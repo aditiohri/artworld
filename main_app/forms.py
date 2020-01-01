@@ -1,12 +1,7 @@
 from django import forms
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
-# from .models import Cart
 
-# class OrderForm(ModelForm):
-#   class Meta:
-#     model = Order
-#     fields = ['customer', 'art', 'address']
 class CheckoutForm(forms.Form):
     shipping_address = forms.CharField(required=False)
     shipping_address2 = forms.CharField(required=False)
