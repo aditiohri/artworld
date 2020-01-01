@@ -164,7 +164,7 @@ class CheckoutView(LoginRequiredMixin, View):
                             country=shipping_country,
                             zip=shipping_zip,
                             address_type='S'
-                        )
+                            )
                         
                     shipping_address.save()
                     order.shipping_address = shipping_address
