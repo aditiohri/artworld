@@ -142,7 +142,7 @@ class CheckoutView(LoginRequiredMixin, View):
                         shipping_address = Address.objects.get(
                             user=self.request.user,
                             address_type='S'
-                        )
+                            )
                     except Address.DoesNotExist:
                         shipping_address = None
 
