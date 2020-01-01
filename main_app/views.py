@@ -195,7 +195,7 @@ class CheckoutView(LoginRequiredMixin, View):
                                 billing_address = Address.objects.get(
                                     user=self.request.user,
                                     address_type='B'
-                                )
+                                    )
                             except Address.DoesNotExist:
                                 billing_address = None
 
