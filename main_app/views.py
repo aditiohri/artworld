@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
+from django.views.generic.edit import UpdateView
 from .forms import CheckoutForm  # , PaymentForm
 from .models import Art, Cart, Order, Address, Payment  # , UserProfile
 
@@ -91,6 +92,10 @@ def delete_cart_item(request, art_id):
     Cart.objects.filter(user=request.user, art_id=art_id).delete()
     return redirect('cart_index')
 
+class OrderUpdate(LoginRequiredMixin, UpdateView):
+    model = Order
+    fields = ['billing_address', 'shipping_address']
+    success_url = '/cart/'
 
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
