@@ -92,10 +92,9 @@ def delete_cart_item(request, art_id):
     Cart.objects.filter(user=request.user, art_id=art_id).delete()
     return redirect('cart_index')
 
-class OrderUpdate(LoginRequiredMixin, UpdateView):
+class OrderView(LoginRequiredMixin, UpdateView):
     model = Order
     fields = ['billing_address', 'shipping_address']
-    success_url = '/cart/'
 
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
