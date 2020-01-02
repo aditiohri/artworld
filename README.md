@@ -30,7 +30,7 @@ ________________
 ## <a name="dev"></a> **Development Tools**
 ________________
 
-[Pitch Deck](https://docs.google.com/presentation/d/1yGy2Mh3n6IhPxFu4XKnnMtPPi4OGFPpf-Z_TMYw6wQY/edit?usp=sharing)
+[Pitch Deck](https://docs.google.com/presentation/d/1yGy2Mh3n6IhPxFu4XKnnMtPPi4OGFPpf-Z_TMYw6wQY/edit?usp=sharing)<br />
 [Trello](https://trello.com/b/cXNCCHB5/pipadf-sei-project3)
 
 [top](#home)
