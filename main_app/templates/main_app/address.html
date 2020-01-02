@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container ">
+  <div class="">
+    <div class="col-md-8 mb-8">
+      <h1>Edit Address</h1>
+      <div class="card">
+        <form method="POST" class="card-body">
+          {% csrf_token %}
+
+          {% if address_type == "B" %}
+          <h3>Billing address</h3>
+          {% else %}
+          <h3>Shipping address</h3>
+          {% endif %}
+
+          <div class="hideable_shipping_form">
+            <div class="md-form mb-5">
+              <input type="text" placeholder="1234 Main St" id="address1" name="address1" class="form-control"
+                value=" {{ address.street_address }} " />
+              <label for="address1" class="">Address</label>
+            </div>
+
+            <div class="md-form mb-5">
+              <input type="text" placeholder="Apartment or suite" id="address2" name="address2" class="form-control"
+                value=" {{ address.apartment_address }} " />
+              <label for="address2" class="">Address 2 (optional)</label>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-12 mb-4">
+                <label for="country">Country</label>
+                {{ form.country }}
+                <div class="invalid-feedback">
+                  Please select a valid country.
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 mb-4">
+                <label for="zip">Zip</label>
+                <input type="text" placeholder="Zip " id="zip" name="zip" class="form-control"
+                  value=" {{ address.zip }} " />
+                <div class="invalid-feedback">
+                  Zip code required.
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr />
+          <button class="btn btn-primary btn-lg btn-block" type="submit">
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

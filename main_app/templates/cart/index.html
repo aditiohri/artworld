@@ -1,64 +1,66 @@
 {% extends 'base.html' %} {% block content %}
 <h1>{{ user.username }}'s Cart</h1>
 
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Artist</th>
-        <th scope="col">Price</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% if cart.count %}
-      <tr>
-        {% for item in cart %}
-        <th scope="row">1</th>
-        <td>{{ item.art.title }}</td>
-        <td>{{ item.art.artist }}</td>
-        <td>${{ item.art.price }}</td>
-        <td>
-          <form action="{% url 'delete_cart_item' item.art.id %}" method="post">
-            {% csrf_token %}
-            <button class="btn btn-danger" type="submit">X</button>
-          </form>
-        </td>
-      </tr>
-      {% endfor %}
-      {% if order %}
-      <tr>
-        <th scope="row">TOTAL:</th>
-        <td></td>
-        <td></td>
-        <td>${{ order.get_total_price }}</td>
-        <td></td>
-      </tr>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Artist</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if cart.count %}
+    <tr>
+      {% for item in cart %}
+      <th scope="row">1</th>
+      <td>{{ item.art.title }}</td>
+      <td>{{ item.art.artist }}</td>
+      <td>${{ item.art.price }}</td>
+      <td>
+        <form action="{% url 'delete_cart_item' item.art.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-danger" type="submit">X</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+    {% if order %}
+    <tr>
+      <th scope="row">TOTAL:</th>
+      <td></td>
+      <td></td>
+      <td>${{ order.get_total_price }}</td>
+      <td></td>
+    </tr>
 
+    <div class="row">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Billing to:</h5>
+          <p class="card-text">
+            {{ order.billing_address.street_address }}
+            <br>
+            {{ order.billing_address.country }}, {{ order.billing_address.zip }}
+          </p>
+          <a href="{% url 'update_address' %}?type=B" class="btn btn-primary">Edit</a>
+        </div>
+      </div>
       <div class="row">
         <div class="card" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">Billing to:</h5>
+            <h5 class="card-title">Shipping to:</h5>
             <p class="card-text">
-              {{ order.billing_address.street_address }}, {{ order.billing_address.country }}, {{ order.billing_address.zip }}
-              {{ order.billing_address.address_type}}
+              {{ order.shipping_address.street_address }}
+              <br>
+              {{ order.shipping_address.country }}, {{ order.shipping_address.zip }}
             </p>
-            <a href="{% url 'address_update' order.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'update_address' %}?type=S" class="btn btn-primary">Edit</a>
           </div>
         </div>
-        <div class="row">
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Shipping to:</h5>
-              <p class="card-text">
-                {{ order.shipping_address.street_address }}, {{ order.shipping_address.country }},
-                {{ order.shipping_address.zip }} {{ order.shipping_address.address_type }}
-              </p>
-              <a href="{% url 'address_update' order.id %}" class="btn btn-primary">Edit</a>
-            </div>
-          </div>
-        </div>
+      </div>
       {% endif %}
       <td>
         <form action="{% url 'delete_cart'  %}" method="post">
@@ -73,6 +75,6 @@
       {% else %}
       <td>Your Cart is Empty</td>
       {% endif %} {% endblock %}
-    </tbody>
-  </table>
+  </tbody>
+</table>
 </div>
