@@ -9,15 +9,21 @@
 ## <a name="intro"></a> **Introduction**
 ________________
 
-DESCRIPTION OF APP
-LINKS TO TEAM githubs
+Artworld is an e-commerce site that allows artists to share their artwork with audiences from diverse background. Customers have the option to purchase artwork or enroll in payment plans that stagger payments up to 2 years.
+
+[Aditi Ohri](https://github.com/aditiohri), Scrum + GitHub Manager
+[Dinny Nocentini](https://github.com/dnocentini), Lead Backend Engineer
+[Fabian Acosta](https://github.com/acostahf), Database Manager and Design Lead
+
+++ add screenshot after deployment ++
 
 [top](#home)
 
 ## <a name="tech"></a> **Technology**
 ________________
 
-DESCRIPTION OF tech
+* Django
+* Python
 
 [top](#home)
 
@@ -32,12 +38,7 @@ ________________
 ## <a name="future"></a> **Future Enhancements**
 ________________
 
-* Continue styling the app
-* In the update function, allow users to use placeholder text to edit their card meanings
-* Users can edit comments to their personal readings
-* Users can query their own databases
-* Create a Card schema + cross-user database that allows users to share their card meanings
-* Add images to the card meanings
-* Users can do 3-card readings
+* Allow user to complete payment with Stripe API
+* Continue Styling the App
 
 [top](#home)
