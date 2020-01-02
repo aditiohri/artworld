@@ -29,3 +29,13 @@ class CheckoutForm(forms.Form):
 
     # payment_option = forms.ChoiceField(
     #     widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
+
+class EditAddressForm(forms.Form):
+    address1 = forms.CharField(required=False)
+    address2 = forms.CharField(required=False)
+    country = CountryField(blank_label='(select country)').formfield(
+        required=False,
+        widget=CountrySelectWidget(attrs={
+            'class': 'custom-select d-block w-100',
+        }))
+    zip = forms.CharField(required=False)

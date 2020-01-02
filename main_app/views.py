@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View
 from django.views.generic.edit import UpdateView
-from .forms import CheckoutForm  # , PaymentForm
+from .forms import CheckoutForm, EditAddressForm  # , PaymentForm
 from .models import Art, Cart, Order, Address, Payment  # , UserProfile
 
 # import stripe
@@ -105,16 +105,6 @@ class CheckoutView(LoginRequiredMixin, View):
                 'form': form,
                 'order': order,
             }
-
-            billing_address = Address.objects.filter(
-            user=self.request.user,
-            address_type='B'
-            )
-
-            shipping_address = Address.objects.filter(
-                user=self.request.user,
-                address_type='S'
-            )
 
             return render(self.request, "main_app/checkout.html", context)
         except ObjectDoesNotExist:
@@ -343,6 +333,84 @@ class CheckoutView(LoginRequiredMixin, View):
     #     messages.warning(self.request, "Invalid data received")
     #     return redirect("/payment/stripe/")
 
+class UpdateAddress(LoginRequiredMixin, View):
+    def get(self, *args, **kwargs):
+        try:
+            address_type = self.request.GET.get('type')
+
+            try:
+                address = Address.objects.get(
+                    user=self.request.user,
+                    address_type=address_type
+                )
+            except Address.DoesNotExist:
+                address = None
+
+            form = EditAddressForm()
+            if address is not None:
+                form.fields['country'].initial = address.country
+
+            context = {
+                'form': form,
+                'address': address,
+            }
+
+            context.update({'address_type': address_type})
+
+            return render(self.request, 'main_app/address.html', context)
+        except ObjectDoesNotExist:
+            messages.info(self.request, "You do not have an active order")
+            return redirect("checkout")
+
+    def post(self, *args, **kwargs):
+        address_type = self.request.GET.get('type')
+
+        form = EditAddressForm(self.request.POST)
+        try:
+            if form.is_valid():
+                address1 = form.cleaned_data.get(
+                    'address1')
+                address2 = form.cleaned_data.get(
+                    'address2')
+                country = form.cleaned_data.get(
+                    'country')
+                zip = form.cleaned_data.get(
+                    'zip')
+
+                if is_valid_form([address1, country, zip]):
+                    try:
+                        address = Address.objects.get(
+                            user=self.request.user,
+                            address_type=address_type
+                            )
+                    except Address.DoesNotExist:
+                        address = None
+
+                    if address is not None:
+                        address.street_address=address1
+                        address.apartment_address=address2
+                        address.country=country
+                        address.zip=zip
+                    else:
+                        address = Address(
+                            user=self.request.user,
+                            street_address=address1,
+                            apartment_address=address2,
+                            country=country,
+                            zip=zip,
+                            address_type=address_type
+                        )
+
+                    address.save()
+                        
+                else:
+                    messages.info(
+                        self.request, "Please fill in the required shipping address fields")
+
+                return redirect('cart_index')
+        except ObjectDoesNotExist:
+            messages.warning(self.request, "You do not have an active order")
+            return redirect('cart_index')
 
 def signup(request):
     error_message = ''
