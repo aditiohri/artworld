@@ -10,10 +10,10 @@ from django.views.generic import View
 from django.views.generic.edit import UpdateView
 from .forms import CheckoutForm, EditAddressForm  # , PaymentForm
 from .models import Art, Cart, Order, Address, Payment  # , UserProfile
-# import os
+import os
 import stripe
-# stripe.api_key = os.environ['STRIPE_SECRET_KEY']
-stripe.api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+stripe.api_key = os.environ['STRIPE_SECRET_KEY']
+# stripe.api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 
 
 # Create your views here.
