@@ -11,9 +11,9 @@ ________________
 
 Artworld is an e-commerce site that allows artists to share their artwork with audiences from diverse background. Customers have the option to purchase artwork or enroll in payment plans that stagger payments up to 2 years.
 
-[Aditi Ohri](https://github.com/aditiohri), Scrum + GitHub Manager
-[Dinny Nocentini](https://github.com/dnocentini), Lead Backend Engineer
-[Fabian Acosta](https://github.com/acostahf), Database Manager and Design Lead
+[Aditi Ohri](https://github.com/aditiohri), Scrum + GitHub Manager<br />
+[Dinny Nocentini](https://github.com/dnocentini), Lead Backend Engineer<br />
+[Fabian Acosta](https://github.com/acostahf), Database Manager and Design Lead<br />
 
 ++ add screenshot after deployment ++
 
