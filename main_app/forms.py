@@ -27,9 +27,6 @@ class CheckoutForm(forms.Form):
     set_default_billing = forms.BooleanField(required=False)
     use_default_billing = forms.BooleanField(required=False)
 
-    # payment_option = forms.ChoiceField(
-    #     widget=forms.RadioSelect, choices=PAYMENT_CHOICES)
-
 class EditAddressForm(forms.Form):
     address1 = forms.CharField(required=False)
     address2 = forms.CharField(required=False)
@@ -39,3 +36,8 @@ class EditAddressForm(forms.Form):
             'class': 'custom-select d-block w-100',
         }))
     zip = forms.CharField(required=False)
+
+class PaymentForm(forms.Form):
+    stripeToken = forms.CharField(required=False)
+    save = forms.BooleanField(required=False)
+    use_default = forms.BooleanField(required=False)    
