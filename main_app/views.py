@@ -13,7 +13,7 @@ from .models import Art, Cart, Order, Address, Payment  # , UserProfile
 import os
 import stripe
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
-
+# stripe.api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
 
 
 # Create your views here.
@@ -110,7 +110,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
             return render(self.request, "main_app/checkout.html", context)
         except ObjectDoesNotExist:
-            messages.info(self.request, "You do not have an active order")
+            messages.info(self.request, "You do not have an ac  tive order")
             return redirect("checkout")
 
     def post(self, *args, **kwargs):
