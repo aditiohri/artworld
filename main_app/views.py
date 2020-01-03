@@ -252,7 +252,7 @@ class PaymentView(View):
                 charge = stripe.Charge.create(
                         amount=amount,
                         currency="usd",
-                        source=token['stripeToken']
+                        source=token
                     )
 
                 payment = Payment()
@@ -272,13 +272,39 @@ class PaymentView(View):
                 order.save()
 
                 messages.success(self.request, "Your order was successful!")
-                return redirect('/')
+                return redirect('order_detail')
 
-            except stripe.error.StripeError as e:
-                messages.warning(
-                    self.request, "Something went wrong. You were not charged. Please try again.")
-                return redirect('/')
+            except stripe.error.CardError as e:
+                body = e.json_body
+                err = body.get('error', {})
+                print('stripCardError', e)
+                messages.warning(self.request, f"{err.get('message')}")
+                return redirect("cart_index")
 
+            except stripe.error.RateLimitError as e:
+                # Too many requests made to the API too quickly
+                print('rate', e)
+                messages.warning(self.request, "Rate limit error")
+                return redirect("cart_index")
+
+            except stripe.error.InvalidRequestError as e:
+                # Invalid parameters were supplied to Stripe's API
+                print('invalidrequest', e)
+                messages.warning(self.request, "Invalid parameters")
+                return redirect("cart_index")
+
+            except stripe.error.AuthenticationError as e:
+                # Authentication with Stripe's API failed
+                # (maybe you changed API keys recently)
+                print('auth', e)
+                messages.warning(self.request, "Not authenticated")
+                return redirect("cart_index")
+
+            except stripe.error.APIConnectionError as e:
+                # Network communication with Stripe failed
+                print('api', e)
+                messages.warning(self.request, "Network error")
+                return redirect("cart_index")
         messages.warning(self.request, "Invalid data received")
         return redirect('payment')
 
