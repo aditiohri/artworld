@@ -109,7 +109,7 @@ class CheckoutView(LoginRequiredMixin, View):
 
             return render(self.request, 'main_app/checkout.html', context)
         except ObjectDoesNotExist:
-            messages.info(self.request, "You do not have an ac  tive order")
+            messages.info(self.request, "You do not have an active order")
             return redirect('checkout')
 
     def post(self, *args, **kwargs):
@@ -232,49 +232,49 @@ class PaymentView(View):
             context = {
                 'order': order,
             }
-            userprofile = self.request.user.userprofile
-            if userprofile.one_click_purchasing:
-                cards = stripe.Customer.list_sources(
-                    userprofile.stripe_customer_id,
-                    limit=3,
-                    object='card'
-                )
-                card_list = cards['data']
-                if len(card_list) > 0:
-                    context.update({
-                        'card': card_list[0]
-                    })
-            return render(self.request, 'payment.html', context)
+            # userprofile = self.request.user.userprofile
+            # if userprofile.one_click_purchasing:
+            #     cards = stripe.Customer.list_sources(
+            #         userprofile.stripe_customer_id,
+            #         limit=3,
+            #         object='card'
+            #     )
+            #     card_list = cards['data']
+            #     if len(card_list) > 0:
+            #         context.update({
+            #             'card': card_list[0]
+            #         })
+            return render(self.request, 'main_app/payment.html', context)
         else:
             messages.warning(
                 self.request, "You have not added a billing address")
-            return redirect('checkout.html')
+            return redirect('checkout')
 
     def post(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
         form = PaymentForm(self.request.POST)
-        userprofile = UserProfile.objects.get(user=self.request.user)
+        # userprofile = UserProfile.objects.get(user=self.request.user)
         if form.is_valid():
             token = form.cleaned_data.get('stripeToken')
             save = form.cleaned_data.get('save')
             use_default = form.cleaned_data.get('use_default')
 
-            if save:
-                if userprofile.stripe_customer_id != '' and userprofile.stripe_customer_id is not None:
-                    customer = stripe.Customer.retrieve(
-                        userprofile.stripe_customer_id)
-                    customer.sources.create(source=token)
+            # if save:
+            #     if userprofile.stripe_customer_id != '' and userprofile.stripe_customer_id is not None:
+            #         customer = stripe.Customer.retrieve(
+            #             userprofile.stripe_customer_id)
+            #         customer.sources.create(source=token)
 
-                else:
-                    customer = stripe.Customer.create(
-                        email=self.request.user.email,
-                    )
-                    customer.sources.create(source=token)
-                    userprofile.stripe_customer_id = customer['id']
-                    userprofile.one_click_purchasing = True
-                    userprofile.save()
+            #     else:
+            #         customer = stripe.Customer.create(
+            #             email=self.request.user.email,
+            #         )
+            #         customer.sources.create(source=token)
+            #         userprofile.stripe_customer_id = customer['id']
+            #         userprofile.one_click_purchasing = True
+            #         userprofile.save()
 
-            amount = int(order.get_total() * 100)
+            amount = int(order.get_total_price() * 100)
 
             try:
 
@@ -294,7 +294,7 @@ class PaymentView(View):
                 payment = Payment()
                 payment.stripe_charge_id = charge['id']
                 payment.user = self.request.user
-                payment.amount = order.get_total()
+                payment.amount = order.get_total_price()
                 payment.save()
 
 
