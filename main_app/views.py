@@ -229,7 +229,7 @@ class CheckoutView(LoginRequiredMixin, View):
 class PaymentView(View):
     def get_context_data(self, **kwargs): # new
         context = super().get_context_data(**kwargs)
-        context['key'] = os.environ.STRIPE_PUBLISHABLE_KEY
+        context['key'] = os.environ['STRIPE_PUBLISHABLE_KEY']
         return context
 
     def get(self, *args, **kwargs):
@@ -237,7 +237,7 @@ class PaymentView(View):
         if order.billing_address:
             context = {
                 'order': order,
-                'key': os.environ.STRIPE_PUBLISHABLE_KEY,
+                'key': os.environ['STRIPE_PUBLISHABLE_KEY'],
             }
             
 
@@ -253,7 +253,7 @@ class PaymentView(View):
 
         if form.is_valid():
             # token = form.cleaned_data.get('stripeToken')
-            token = form.data.get['stripeToken']
+            token = form.cleaned_data.get('stripeToken')
             amount = int(order.get_total_price() * 100)
 
             try:
@@ -261,7 +261,7 @@ class PaymentView(View):
                 charge = stripe.Charge.create(
                         amount=amount,
                         currency="usd",
-                        source=request.POST['stripeToken']
+                        source=token
                     )
 
                 payment = Payment()
