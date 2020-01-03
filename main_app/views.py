@@ -6,12 +6,13 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View
+from django.views.generic import View, DetailView
 from django.views.generic.edit import UpdateView
 from .forms import CheckoutForm, EditAddressForm, PaymentForm
 from .models import Art, Cart, Order, Address, Payment
 import os
 import stripe
+import json
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
 
@@ -93,9 +94,9 @@ def delete_cart_item(request, art_id):
     Cart.objects.filter(user=request.user, art_id=art_id).delete()
     return redirect('cart_index')
 
-class OrderView(LoginRequiredMixin, UpdateView):
+class OrderDetail(LoginRequiredMixin, DetailView):
     model = Order
-    fields = ['billing_address', 'shipping_address']
+    template = 'main_app/order_detail.html'
 
 class CheckoutView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
@@ -245,16 +246,13 @@ class PaymentView(View):
 
         if form.is_valid():
             token = form.cleaned_data.get('stripeToken')
-            save = form.cleaned_data.get('save')
-            use_default = form.cleaned_data.get('use_default')
-
             amount = int(order.get_total_price() * 100)
 
             try:
                 charge = stripe.Charge.create(
                         amount=amount,
                         currency="usd",
-                        source=token
+                        source=token['stripeToken']
                     )
 
                 payment = Payment()
