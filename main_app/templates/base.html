@@ -26,32 +26,98 @@
         <a class="navbar-brand">ArtWorld</a>
         <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'cart_index' %}">Cart</a>
         {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">Log Out</a>
         {% else %}
         <a href="{% url 'signup' %}">Sign Up</a>
         <a href="{% url 'login' %}">Log In</a>
         {% endif %}
-        <form class="form-inline">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
-        <a href="{% url 'cart_index' %}">Cart</a>
       </nav>
     </header>
     <main class="container">
       {% block content %} {% endblock %}
     </main>
   </body>
+ 
+  <!-- Footer -->
+  <footer class="page-footer font-small bg-dark indigo">
+    <!-- Footer Links -->
+    <div class="container text-center text-md-center">
+      <!-- Grid row -->
+      <div class="row">
+        <!-- Grid column -->
+        
+          <!-- Links -->
+        
+        <!-- Grid column -->
+        
+        <hr class="clearfix w-100 d-md-none" />
+        
+        <!-- Grid column -->
+        <div class="col-md-3 mx-auto">
+          <!-- Links -->
+          <h5 class="text-uppercase">Aditi</h5>
+          
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://github.com/aditiohri"target="_blank">GitHub</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/aditi-ohri-970593ba/"target="_blank">Linkedin</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+        <div class="col-md-3 mx-auto">
+          <!-- Links -->
+          <h5 class="text-uppercase">Fabian</h5>
+          
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://github.com/acostahf" target="_blank">GitHub</a>
+            </li>
+            <li>
+              <a
+              href="https://linkedin.com/in/fabianacostadev"
+              target="_blank"
+              >Linkedin
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+      <div class="col-md-3 mx-auto">
+        <!-- Links -->
+        <h5 class="text-uppercase">Dinny</h5>
+        
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://github.com/dnocentini"target="_blank">GitHub</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/dinny-nocentini/"target="_blank">Linkedin</a>
+          </li>
+        </ul>
+      </div>
+      <!-- Grid column -->
+    </div>
+    <!-- Grid row -->
+  </div>
+  <!-- Grid column -->
+</div>
+
+<!-- Grid row -->
+</div>
+<!-- Footer Links -->
+
+<!-- Copyright -->
+<div class="footer-copyright text-center py-3">
+  © 2020 Copyright:
+  ArtWorld</a>
+</div>
+<!-- Copyright -->
+</footer>
+<!-- Footer -->
+
 </html>
-<!-- <footer class="page-footer">
-            All Rights Reserved, &copy; 2019 ArtWorld &nbsp;
-          </div>
-        </footer> -->

@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %} {% for art in arts %}
 <div class="row">
   <div class="col-sm-6">
-    <div class="card" style="width: 18rem;">
+    <div class="card h-100" style="width: 18rem;">
       <img src="{{ art.img }}" class="card-img-top" alt="..." />
       <div class="card-body">
         <span class="card-title">{{ art.title }}</span>
