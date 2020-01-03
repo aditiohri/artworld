@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+  <div class="col s6 col-offset-3">
+    <div class="card">
+      <div class="card-content">
+        <h3><span class="card-title">{{ order.user }}'s Order Summary</span></h3>
+        <p>Ordered On: {{ order.ordered_date }}</p>
+        <p>Artwork: {{ order.art.title }}</p>
+        <p>Artist: {{ order.art.artist }}</p>
+        <p>Amount: {{ order.payment.amount }}</p>
+        <p>Shipping Address: {{ order.shipping_address }}</p>
+        <p>Billing Address: {{ order.billing_address }}</p>
+        <p>Payment Reference #: {{ order.payment.stripe_charge_id }}</p>
+      </div>
+      <div class="card-action">
+        <a href="{% url 'index' %}">Gallery Homepage</a>
+        <a href="{% url 'cart_index' %}">Return to Cart</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
