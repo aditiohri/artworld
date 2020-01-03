@@ -25,7 +25,8 @@ ________________
 * Django
 * Python
 * Stripe API
-* Deployed via Heroku
+* PostgreSQL
+* Heroku
 * Github
 
 [top](#home)
