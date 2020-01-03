@@ -251,15 +251,7 @@ class PaymentView(View):
             amount = int(order.get_total_price() * 100)
 
             try:
-
-                if use_default or save:
-                    charge = stripe.Charge.create(
-                        amount=amount,
-                        currency="usd",
-                        customer=userprofile.stripe_customer_id
-                    )
-                else:
-                    charge = stripe.Charge.create(
+                charge = stripe.Charge.create(
                         amount=amount,
                         currency="usd",
                         source=token
