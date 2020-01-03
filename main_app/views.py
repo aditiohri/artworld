@@ -252,7 +252,8 @@ class PaymentView(View):
         form = PaymentForm(self.request.POST)
 
         if form.is_valid():
-            token = form.cleaned_data.get('stripeToken')
+            # token = form.cleaned_data.get('stripeToken')
+            token = form.data.get['stripeToken']
             amount = int(order.get_total_price() * 100)
 
             try:
