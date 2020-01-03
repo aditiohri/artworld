@@ -8,24 +8,6 @@
       <div class="col-md-12 mb-4">
         <div class="card">
           <script src="https://js.stripe.com/v3/"></script>
-          {% if card %}
-          <div style="padding: 5px 30px;">
-            <div class="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                name="use_default_card"
-                id="use_default_card"
-              />
-              <label class="custom-control-label" for="use_default_card"
-                >Use default card: **** **** **** {{ card.last4 }}
-                <span
-                  >Exp: {{ card.exp_month }}/{{ card.exp_year }}</span
-                ></label
-              >
-            </div>
-          </div>
-          {% endif %}
 
           <div class="current-card-form">
             <form action="." method="post" class="stripe-form">
@@ -151,7 +133,6 @@
     // Submit the form
     form.submit();
   }
-  var currentCardForm = $(".current-card-form");
   var newCardForm = $(".new-card-form");
 
 </script>
