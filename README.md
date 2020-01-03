@@ -15,7 +15,7 @@ Artworld is an e-commerce site that allows artists to share their artwork with a
 [Dinny Nocentini](https://github.com/dnocentini), Lead Backend Engineer<br />
 [Fabian Acosta](https://github.com/acostahf), Database Manager and Design Lead<br />
 
-++ add screenshot after deployment ++
+![Screenshot](https://i.imgur.com/80Po4Oh.jpg)
 
 [top](#home)
 
