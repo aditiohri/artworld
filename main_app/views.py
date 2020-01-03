@@ -13,6 +13,7 @@ from .models import Art, Cart, Order, Address, Payment
 import os
 import stripe
 import json
+from flask import Flask
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
 
@@ -227,12 +228,18 @@ class CheckoutView(LoginRequiredMixin, View):
 
 
 class PaymentView(View):
+    def get_context_data(self, **kwargs): # new
+        context = super().get_context_data(**kwargs)
+        context['key'] = os.environ.STRIPE_PUBLISHABLE_KEY
+        return context
+
     def get(self, *args, **kwargs):
         order = Order.objects.get(user=self.request.user, ordered=False)
         if order.billing_address:
             context = {
                 'order': order,
             }
+            
 
             return render(self.request, 'main_app/payment.html', context)
         else:
@@ -249,10 +256,11 @@ class PaymentView(View):
             amount = int(order.get_total_price() * 100)
 
             try:
+                customer = stripe.Customer.create(description='test', source=token)
                 charge = stripe.Charge.create(
                         amount=amount,
                         currency="usd",
-                        source=token
+                        source=request.POST['stripeToken']
                     )
 
                 payment = Payment()
