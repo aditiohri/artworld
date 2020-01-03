@@ -237,6 +237,7 @@ class PaymentView(View):
         if order.billing_address:
             context = {
                 'order': order,
+                'key': os.environ.STRIPE_PUBLISHABLE_KEY,
             }
             
 
