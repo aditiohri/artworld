@@ -67,7 +67,7 @@
           {% csrf_token %}
           <button class="btn btn-danger" type="submit">Clear Cart</button>
         </form>
-        <form action="{% url 'checkout' %}" method="post">
+        <form action="{% url 'checkout' %}" method="get">
           {% csrf_token %}
           <button class="btn btn-primary" type="submit">Checkout</button>
         </form>
