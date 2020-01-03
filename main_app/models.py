@@ -14,7 +14,6 @@ ADDRESS_CHOICES = (
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=50, blank=True, null=True)
-    # one_click_purchasing = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.username
@@ -76,9 +75,6 @@ class Address(models.Model):
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        # commented code below is not working because it returns a queryset rather than a string
-        # user = Address.objects.filter(user__username=self.user.username)
-        # return user.street_address
         return self.street_address
 
     class Meta:
