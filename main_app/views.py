@@ -13,7 +13,6 @@ from .models import Art, Cart, Order, Address, Payment
 import os
 import stripe
 import json
-from flask import Flask
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
 
